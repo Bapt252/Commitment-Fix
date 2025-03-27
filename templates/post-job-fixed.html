@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Contenu identique à post-job.html, omis pour clarté -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nexten - Création d'un nouveau poste">
+    <title>Nexten - Création d'un nouveau poste (Corrigé)</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/styles/nexten-modern-interactive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../static/images/favicon.ico" type="image/x-icon">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* Styles identiques à post-job.html, omis pour clarté */
+        :root {
+            --purple: #7c3aed;
+            --purple-dark: #6025c0;
+            --purple-light: #ddd6fe;
+            --cream: #f9fafb;
+            --white: #ffffff;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --primary-light: rgba(124, 58, 237, 0.1);
+        }
+        
+        /* Styles spécifiques pour les choice-cards */
+        .choice-card {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 16px;
+            background-color: #f8fafc;
+            border-radius: 0.75rem;
+            border: 1.5px solid var(--gray-light);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-card:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .choice-card input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .checkbox-style, .radio-style {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 2px solid var(--gray-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .checkbox-style {
+            border-radius: 4px;
+        }
+
+        .radio-style {
+            border-radius: 50%;
+        }
+
+        .choice-card:hover .checkbox-style,
+        .choice-card:hover .radio-style {
+            border-color: #cbd5e1;
+        }
+
+        .choice-card input:checked + .checkbox-style {
+            background-color: var(--purple);
+            border-color: var(--purple);
+        }
+
+        .choice-card input:checked + .checkbox-style::after {
+            content: '✓';
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .choice-card input:checked + .radio-style {
+            border-color: var(--purple);
+        }
+
+        .choice-card input:checked + .radio-style::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--purple);
+        }
+
+        .choice-card input:checked ~ span {
+            color: var(--dark);
+        }
+
+        .choice-card.selected {
+            background-color: var(--primary-light) !important;
+            border-color: var(--purple) !important;
+            color: var(--purple) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification bar -->
+    <div class="notification-bar">
+        <i class="fas fa-bell"></i> Vous avez 5 nouveaux candidats correspondant à vos offres et 2 entretiens programmés aujourd'hui
+    </div>
+
+    <!-- Lien d'accessibilité pour sauter au contenu principal -->
+    <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+
+    <header class="scrolled">
+        <div class="container">
+            <div class="logo">
+                nex<span>ten</span><div class="logo-badge">10</div>
+            </div>
+            
+            <button class="menu-toggle" aria-label="Menu principal">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="company-dashboard.html">Espace entreprise</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="company-banner">
+        <div class="company-banner-content">
+            <div class="company-info">
+                <div class="company-logo">
+                    <img src="https://via.placeholder.com/90x90?text=Logo" alt="Logo InnovTech">
+                </div>
+                <div>
+                    <h2 class="company-name">InnovTech</h2>
+                    <p class="company-category">Technologie & Innovation</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-details">
+                    <h3 class="user-fullname">Thomas Martin</h3>
+                    <p class="user-position">Directeur des Ressources Humaines</p>
+                </div>
+                <div class="user-avatar">
+                    <span>TM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <main class="main-container" id="main-content">
+        <div class="page-title-container">
+            <h1 class="page-title fade-in visible">
+                <i class="fas fa-plus-circle"></i> Création d'un nouveau poste (Version corrigée)
+            </h1>
+            <div class="progress-container slide-in-right visible">
+                <span class="progress-text">Progression: 46%</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 46%;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Étapes visuelles du processus -->
+        <div class="form-steps fade-in visible">
+            <div class="step completed">
+                <div class="step-number">1</div>
+                <div class="step-text">Informations<br>Basiques</div>
+            </div>
+            <div class="step active">
+                <div class="step-number">2</div>
+                <div class="step-text">Contexte<br>de recrutement</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text">Environnement<br>de travail</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-text">Processus<br>d'embauche</div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-text">Révision<br>& Publication</div>
+            </div>
+        </div>
+        
+        <form id="create-job-form">
+            <div class="form-container">
+                <!-- Première colonne du formulaire -->
+                <div class="form-card fade-in visible">
+                    <h3><i class="fas fa-file-alt"></i> Descriptif du poste</h3>
+                    
+                    <div class="form-group">
+                        <label for="job-title" class="form-label">Intitulé du poste</label>
+                        <input type="text" id="job-title" name="job-title" class="form-control" placeholder="Ex: Développeur Full-Stack">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="job-description" class="form-label">Tâches et descriptif</label>
+                        <textarea id="job-description" name="job-description" class="form-control" rows="4" placeholder="Décrivez les principales tâches et responsabilités du poste"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Délai de recrutement</label>
+                        <div class="choice-container">
+                            <label class="choice-card">
+                                <input type="checkbox" name="recruitment-delay" value="immediate">
+                                <span class="checkbox-style"></span>
+                                <span>Immédiat</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="checkbox" name="recruitment-delay" value="2weeks">
+                                <span class="checkbox-style"></span>
+                                <span>2 semaines</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="checkbox" name="recruitment-delay" value="1month">
+                                <span class="checkbox-style"></span>
+                                <span>1 mois</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="checkbox" name="recruitment-delay" value="2months">
+                                <span class="checkbox-style"></span>
+                                <span>2 mois</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="checkbox" name="recruitment-delay" value="3months">
+                                <span class="checkbox-style"></span>
+                                <span>3 mois</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Pouvez-vous gérer un préavis ?</label>
+                        <div class="choice-container">
+                            <label class="choice-card">
+                                <input type="radio" name="notice-period" value="yes-1month">
+                                <span class="radio-style"></span>
+                                <span>OUI</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="radio" name="notice-period" value="no">
+                                <span class="radio-style"></span>
+                                <span>NON</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="notice-period-container" style="display: none;">
+                        <label class="form-label">Durée du préavis acceptable</label>
+                        <div class="choice-container">
+                            <label class="choice-card">
+                                <input type="radio" name="notice-period-duration" value="1month">
+                                <span class="radio-style"></span>
+                                <span>1 mois</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="radio" name="notice-period-duration" value="2months">
+                                <span class="radio-style"></span>
+                                <span>2 mois</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="radio" name="notice-period-duration" value="3months">
+                                <span class="radio-style"></span>
+                                <span>3 mois</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Deuxième colonne du formulaire - contenu abrégé -->
+                <div class="form-card fade-in delay-1 visible">
+                    <h3><i class="fas fa-search"></i> Contexte de recrutement</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Type de recrutement</label>
+                        <div class="choice-container">
+                            <label class="choice-card">
+                                <input type="radio" name="recruitment-context" value="creation">
+                                <span class="radio-style"></span>
+                                <span>Création de poste</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="radio" name="recruitment-context" value="replacement">
+                                <span class="radio-style"></span>
+                                <span>Remplacement</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Troisième colonne du formulaire - contenu abrégé -->
+                <div class="form-card fade-in delay-2">
+                    <h3><i class="fas fa-building"></i> Environnement de travail</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Type d'environnement</label>
+                        <div class="choice-container">
+                            <label class="choice-card">
+                                <input type="radio" name="work-environment" value="openspace">
+                                <span class="radio-style"></span>
+                                <span>Open Space</span>
+                            </label>
+                            <label class="choice-card">
+                                <input type="radio" name="work-environment" value="remote">
+                                <span class="radio-style"></span>
+                                <span>Télétravail</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bouton de validation du poste -->
+            <div class="action-buttons">
+                <button type="button" class="btn btn-secondary">
+                    <i class="fas fa-save"></i> Enregistrer comme brouillon
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check-circle"></i> Valider et publier
+                </button>
+            </div>
+        </form>
+    </main>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4 class="footer-heading">Nexten</h4>
+                    <p class="footer-description">Notre plateforme utilise l'intelligence artificielle pour révolutionner le processus de recrutement, offrant 10 correspondances personnalisées pour les candidats et les recruteurs.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 Nexten - Tous droits réservés | <a href="#">Politique de confidentialité</a> | <a href="#">Conditions d'utilisation</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bouton de retour en haut -->
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script de correction des choice-cards -->
+    <script src="../js/choice-cards-fix.js"></script>
+
+    <!-- Scripts personnalisés -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion des champs du préavis
+            const noticeRadios = document.querySelectorAll('input[name="notice-period"]');
+            const noticePeriodContainer = document.getElementById('notice-period-container');
+            
+            noticeRadios.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'yes-1month') {
+                        noticePeriodContainer.style.display = 'block';
+                    } else {
+                        noticePeriodContainer.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Mise à jour de la barre de progression
+            function updateProgressBar() {
+                const totalFields = document.querySelectorAll('.form-control, .choice-container').length;
+                const filledFields = document.querySelectorAll('.form-control:not([value=""]):not([value="0"]), .choice-card.selected').length;
+                const progressPercentage = Math.min(Math.round((filledFields / totalFields) * 100), 100);
+                
+                document.getElementById('progress-fill').style.width = progressPercentage + '%';
+                document.querySelector('.progress-text').textContent = `Progression: ${progressPercentage}%`;
+            }
+            
+            // Surveiller les changements dans le formulaire
+            document.querySelectorAll('.form-control, .choice-card input').forEach(function(element) {
+                element.addEventListener('change', updateProgressBar);
+                element.addEventListener('input', updateProgressBar);
+            });
+            
+            // Initialiser la barre de progression
+            updateProgressBar();
+        });
+    </script>
+</body>
+</html>
